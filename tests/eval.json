@@ -1,0 +1,82 @@
+[
+  {
+    "query": "秒針が5秒ずつ飛んで動く",
+    "expectedPart": "電池"
+  },
+  {
+    "query": "時計がまったく動かない",
+    "expectedPart": "電池"
+  },
+  {
+    "query": "針同士が当たって止まってしまう",
+    "expectedPart": "歯車"
+  },
+  {
+    "query": "秒針だけが進まない",
+    "expectedPart": "秒針"
+  },
+  {
+    "query": "リューズを引いて針を回そうとしても動かない",
+    "expectedPart": "リューズ"
+  },
+  {
+    "query": "日付が変わらない",
+    "expectedPart": "カレンダー機構"
+  },
+  {
+    "query": "ガラスの内側がくもる",
+    "expectedPart": "パッキン"
+  },
+  {
+    "query": "リューズのところから水が入ってきた",
+    "expectedPart": "リューズ防水パッキン"
+  },
+  {
+    "query": "カチカチと普段より大きい音がする",
+    "expectedPart": "ステッピングモーター"
+  },
+  {
+    "query": "電池を新品にしても動かない",
+    "expectedPart": "ムーブメント"
+  },
+  {
+    "query": "進みが異常に速い",
+    "expectedPart": "水晶振動子"
+  },
+  {
+    "query": "電池電圧はあるのに全く動かない",
+    "expectedPart": "IC"
+  },
+  {
+    "query": "電池の減りが異常に早い",
+    "expectedPart": "コイル"
+  },
+  {
+    "query": "落としたあと止まってしまった",
+    "expectedPart": "歯車"
+  },
+  {
+    "query": "磁石のそばに置いたら止まった",
+    "expectedPart": "ステッピングモーター"
+  },
+  {
+    "query": "分針は動くのに時針が動かない",
+    "expectedPart": "歯車"
+  },
+  {
+    "query": "秒針が文字盤にこすれて止まる",
+    "expectedPart": "秒針"
+  },
+  {
+    "query": "電池接点がさびている",
+    "expectedPart": "電池"
+  },
+  {
+    "query": "新品電池なのに数日で止まる",
+    "expectedPart": "コイル"
+  },
+  {
+    "query": "日付が途中で止まって切り替わらない",
+    "expectedPart": "カレンダー機構"
+  }
+]

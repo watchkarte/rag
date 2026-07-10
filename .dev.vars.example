@@ -1,0 +1,7 @@
+# wrangler dev 用のローカルシークレット
+# このファイルをコピーして .dev.vars を作成してください:
+#   cp .dev.vars.example .dev.vars
+#
+# 既に .env に GROQ_API_KEY がある場合は同じ値を設定してください。
+
+GROQ_API_KEY=gsk_your_groq_api_key_here

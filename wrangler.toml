@@ -1,0 +1,23 @@
+name = "clock-diagnosis-rag"
+main = "src/index.ts"
+compatibility_date = "2025-05-01"
+compatibility_flags = ["nodejs_compat"]
+
+# アカウント作成後に `wrangler d1 create clock-diagnosis-db` の database_id を設定する
+[[d1_databases]]
+binding = "DB"
+database_name = "clock-diagnosis-db"
+database_id = "REPLACE_WITH_D1_DATABASE_ID"
+migrations_dir = "migrations"
+
+# アカウント作成後に `wrangler vectorize create clock-diagnosis-index --dimensions=1024 --metric=cosine` を実行する
+[[vectorize]]
+binding = "VECTORIZE"
+index_name = "clock-diagnosis-index"
+
+[ai]
+binding = "AI"
+
+# ローカル開発時は .dev.vars に GROQ_API_KEY を設定する（.env からコピー可）
+# [vars]
+# 公開してよい変数のみここに記載
