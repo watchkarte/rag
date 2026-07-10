@@ -83,6 +83,8 @@ cp .dev.vars.example .dev.vars
 
 ### 3. Cloudflare リソース作成
 
+> **アカウント作成後の詳細手順**: [`README_cloudflare.md`](./README_cloudflare.md)
+
 Cloudflare アカウント作成・ `wrangler login` の後:
 
 ```bash
@@ -128,7 +130,10 @@ npx wrangler secret put GROQ_API_KEY
 
 ### 6. ローカル開発
 
-Vectorize はローカルモックを使わず、**本番インデックスを参照（読み取り）** します。
+Vectorize は local モード非対応のため、`npm run dev`（中身は `npx wrangler dev --remote`）を使います。  
+素の `wrangler` コマンドはグローバル未導入のため動きません（`コマンドが見つかりません`）。  
+事前に **workers.dev サブドメイン登録** が必要です（未登録だと `edge-preview` エラーになります）。  
+詳細は [`README_cloudflare.md`](./README_cloudflare.md) の手順 3・12 を参照してください。
 
 ```bash
 npm run dev

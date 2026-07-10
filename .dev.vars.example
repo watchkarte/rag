@@ -1,6 +1,10 @@
-# wrangler dev 用のローカルシークレット
+# wrangler dev 用のシークレット（Worker が読むのはここ）
 # このファイルをコピーして .dev.vars を作成してください:
 #   cp .dev.vars.example .dev.vars
+#
+# 必要なのは GROQ_API_KEY のみです。
+# CLOUDFLARE_* や D1_DATABASE_ID は seed/eval 用なので .env に置き、
+# ここへはコピーしないでください（コピーしても Worker は使いません）。
 #
 # 既に .env に GROQ_API_KEY がある場合は同じ値を設定してください。
 

@@ -7,7 +7,7 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "clock-diagnosis-db"
-database_id = "REPLACE_WITH_D1_DATABASE_ID"
+database_id = "fdc6a92b-22da-4b47-a128-95d06f499a42"
 migrations_dir = "migrations"
 
 # アカウント作成後に `wrangler vectorize create clock-diagnosis-index --dimensions=1024 --metric=cosine` を実行する
