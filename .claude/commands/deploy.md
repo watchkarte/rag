@@ -17,7 +17,7 @@ npx wrangler secret put GROQ_API_KEY
 ## デプロイ後の確認
 
 ```bash
-curl -s https://<your-workers-subdomain>.workers.dev/diagnose \
+curl -s https://rag.watchkarte.workers.dev/diagnose \
   -H 'content-type: application/json' \
   -d '{"symptom":"秒針が5秒おきに飛んで止まる"}'
 ```

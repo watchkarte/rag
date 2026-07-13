@@ -141,6 +141,14 @@ npx wrangler deploy
 npx wrangler secret put GROQ_API_KEY
 ```
 
+本番 URL: `https://rag.watchkarte.workers.dev/`
+
+```bash
+curl -s https://rag.watchkarte.workers.dev/diagnose \
+  -H 'content-type: application/json' \
+  -d '{"symptom":"秒針が5秒おきに飛んで止まる"}'
+```
+
 ### 6. ローカル開発
 
 Vectorize は local モード非対応のため、`npm run dev`（中身は `npx wrangler dev --remote`）を使います。  

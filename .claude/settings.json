@@ -1,7 +1,8 @@
 {
   "project": {
     "name": "WatchKarte RAG",
-    "description": "クォーツアナログ時計の故障診断 RAG API。Hono + Cloudflare Workers + Vectorize + D1 + Workers AI + Groq で構成。"
+    "description": "クォーツアナログ時計の故障診断 RAG API。Hono + Cloudflare Workers + Vectorize + D1 + Workers AI + Groq で構成。",
+    "productionUrl": "https://rag.watchkarte.workers.dev/"
   },
   "commands": {
     "dev": "npm run dev",
