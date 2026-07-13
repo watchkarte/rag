@@ -139,7 +139,7 @@ CREATE TABLE diagnoses (
 
 ```json
 {
-  "id": "diag_001",
+  "id": "battery_001",
   "namespace": "default"
 }
 ```

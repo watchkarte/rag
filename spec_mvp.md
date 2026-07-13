@@ -269,7 +269,7 @@ CREATE TABLE diagnoses (
 ```json
 [
   {
-    "id": "diag_001",
+    "id": "battery_001",
     "symptom": "秒針が5秒おきに飛んで止まる",
     "part": "電池",
     "difficulty": "容易",
