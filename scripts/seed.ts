@@ -26,7 +26,6 @@ type SeedItem = {
   id: string;
   symptom: string;
   part: string;
-  difficulty?: string;
   description: string;
 };
 
@@ -61,15 +60,9 @@ async function main(): Promise<void> {
   for (const item of items) {
     await runD1Query(
       cf,
-      `INSERT INTO diagnoses (id, symptom, part, difficulty, description)
-       VALUES (?, ?, ?, ?, ?)`,
-      [
-        item.id,
-        item.symptom,
-        item.part,
-        item.difficulty ?? null,
-        item.description,
-      ],
+      `INSERT INTO diagnoses (id, symptom, part, description)
+       VALUES (?, ?, ?, ?)`,
+      [item.id, item.symptom, item.part, item.description],
     );
   }
   console.log(`  投入: ${items.length} rows`);

@@ -14,7 +14,7 @@ export async function getDiagnosesByIds(
 
   const placeholders = ids.map(() => "?").join(", ");
   const sql = `
-    SELECT id, symptom, part, difficulty, description
+    SELECT id, symptom, part, description
     FROM diagnoses
     WHERE id IN (${placeholders})
   `;

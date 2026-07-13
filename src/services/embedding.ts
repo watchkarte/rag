@@ -23,7 +23,6 @@ export async function embedText(ai: Ai, text: string): Promise<number[]> {
 
 /**
  * seed / 検索用の埋め込みテキストを組み立てる。
- * difficulty は含めない（grill-me 決定事項）。
  */
 export function buildEmbeddingText(input: {
   symptom: string;

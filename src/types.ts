@@ -9,7 +9,6 @@ export type DiagnosisRecord = {
   id: string;
   symptom: string;
   part: string;
-  difficulty: string | null;
   description: string | null;
 };
 
