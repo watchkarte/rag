@@ -1,0 +1,47 @@
+# Dependencies
+node_modules/
+
+# Build / cache
+.wrangler/
+.mf/
+dist/
+*.log
+
+# Secrets
+.env
+.dev.vars
+.env.example
+.dev.vars.example
+
+# VCS
+.git/
+.gitignore
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Temporary files
+*.tmp
+*.temp
+coverage/
+
+# Large assets
+*.mp4
+*.mov
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.woff
+*.woff2
+*.ttf
+*.eot
+
+# Lockfiles (keep package-lock.json if needed)
+# package-lock.json

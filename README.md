@@ -1,16 +1,25 @@
-# クォーツアナログ時計故障診断 RAG API (PoC)
+# WatchKarte / クォーツアナログ時計故障診断 RAG API
 
-症状テキストから、最も可能性の高い故障部品を推定する RAG サービスの PoC です。
+症状テキストから、最も可能性の高い故障部品を推定する RAG サービスの PoC / MVP です。
 
-**PoC で検証する核心リスク**: RAG 検索の精度（症状 → 部品の Retrieval 品質）。
+- **製品名**: WatchKarte
+- **主要リスク**: RAG 検索の精度（症状 → 部品の Retrieval 品質）
+- **状態**: PoC 完成、MVP 仕様は `spec_mvp.md` に記載
+- **技術スタック**: Hono + Cloudflare Workers / Vectorize / D1 / Workers AI / Groq
 
-仕様の詳細は [`spec.md`](./spec.md) を参照してください。
+仕様の詳細:
+
+- PoC: [`spec.md`](./spec.md)
+- MVP: [`spec_mvp.md`](./spec_mvp.md)
+- Cloudflare 詳細手順: [`README_cloudflare.md`](./README_cloudflare.md)
+- アーキテクチャ: [`architecture.md`](./architecture.md)
 
 ## 技術スタック
 
 | レイヤー | サービス |
 |---------|---------|
 | フレームワーク | Hono (Cloudflare Workers) |
+| UI | Hono JSX (`hono/jsx`) |
 | ベクトル DB | Cloudflare Vectorize |
 | メタデータ DB | Cloudflare D1 |
 | 埋め込み | Workers AI `@cf/baai/bge-m3` (1024 次元) |
@@ -18,6 +27,10 @@
 | キャッシュ | 未実装（将来拡張） |
 
 ## エンドポイント
+
+### `GET /`
+
+Hono JSX で実装された単一画面診断 UI。
 
 ### `POST /diagnose`
 
@@ -154,6 +167,8 @@ curl -s http://127.0.0.1:8787/diagnose \
 npm run eval
 ```
 
+MVP リリース基準: Recall@3 ≥ 70%、Accuracy@1 ≥ 60%。
+
 ## ディレクトリ構造
 
 ```
@@ -164,13 +179,22 @@ npm run eval
 ├── .dev.vars.example
 ├── .env.example
 ├── README.md
+├── AGENTS.md          # README.md の symlink
+├── CLAUDE.md          # README.md の symlink
+├── ANTIGRAVITY.md     # README.md の symlink
+├── architecture.md
 ├── spec.md
+├── spec_mvp.md
 ├── migrations/
 │   └── 0001_create_diagnoses.sql
 ├── src/
 │   ├── index.ts
 │   ├── types.ts
-│   ├── routes/diagnose.ts
+│   ├── routes/
+│   │   ├── diagnose.ts
+│   │   └── page.ts
+│   ├── components/
+│   │   └── DiagnosisPage.tsx
 │   ├── services/
 │   │   ├── embedding.ts
 │   │   ├── vectorize.ts
@@ -195,6 +219,13 @@ npm run eval
 6. Groq（JSON mode）で `part` / `reason` / `nextAction` を生成
 7. `confidence` は Top-1 コサイン類似度を `[0,1]` に正規化（LLM 生成ではない）
 8. `confidence < 0.6` または検索 0 件ならフォールバック（LLM は呼ばない）
+
+## 主要定数
+
+- `CONFIDENCE_THRESHOLD = 0.6`
+- `TOP_K = 3`
+- `EMBEDDING_MODEL = "@cf/baai/bge-m3"`
+- `GROQ_MODEL = "llama-3.1-8b-instant"`
 
 ## 今後の拡張
 
