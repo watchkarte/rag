@@ -67,6 +67,20 @@ diagnose.post("/", async (c) => {
     );
   }
 
+  function buildRetrievalFallback(
+    topContext: RetrievedContext,
+    fallbackConfidence: number,
+  ): DiagnoseSuccessResponse {
+    return {
+      part: topContext.part,
+      confidence: fallbackConfidence,
+      reason:
+        topContext.description ??
+        "検索結果から最も可能性の高い部品を選定しました。",
+      nextAction: "専門の時計修理店に相談してください。",
+    };
+  }
+
   try {
     // 1-2. 症状を埋め込み
     let vector: number[];
@@ -129,6 +143,18 @@ diagnose.post("/", async (c) => {
       symptom,
       contexts,
     );
+
+    // LLM が参考情報に無い部品名を返した場合は、検索 Top-1 にフォールバック
+    const availableParts = new Set(contexts.map((ctx) => ctx.part));
+    if (!availableParts.has(llmResult.part)) {
+      console.warn(
+        "LLM returned unexpected part, falling back to retrieval result:",
+        { llmPart: llmResult.part, availableParts: [...availableParts] },
+      );
+      return c.json<DiagnoseSuccessResponse>(
+        buildRetrievalFallback(contexts[0], confidence),
+      );
+    }
 
     const response: DiagnoseSuccessResponse = {
       part: llmResult.part,

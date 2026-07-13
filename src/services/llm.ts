@@ -18,11 +18,9 @@ function formatRetrievedContexts(contexts: RetrievedContext[]): string {
     .join("\n\n");
 }
 
-function buildSystemPrompt(
-  symptom: string,
-  contexts: RetrievedContext[],
-): string {
+function buildSystemPrompt(contexts: RetrievedContext[]): string {
   const retrievedContexts = formatRetrievedContexts(contexts);
+  const availableParts = [...new Set(contexts.map((c) => c.part))].join("、");
 
   return `あなたはクォーツアナログ時計の修理技術者です。
 以下の参考情報とユーザーの症状から、最も可能性が高い故障部品を1つ特定し、JSONで出力してください。
@@ -30,8 +28,10 @@ function buildSystemPrompt(
 参考情報:
 ${retrievedContexts}
 
-ユーザー症状:
-${symptom}
+注意:
+- part は必ず参考情報に含まれる部品名から選んでください。選択肢: ${availableParts}
+- reason は簡潔に、100文字以内で説明してください。
+- nextAction はユーザーが自分でできる具体的な次の行動を示してください。
 
 出力形式:
 {
@@ -40,10 +40,16 @@ ${symptom}
   "nextAction": "ユーザーが取るべき次の行動"
 }
 
-注意:
-- part は参考情報の中から最も可能性が高い部品を1つ選んでください。
-- reason は簡潔に、100文字以内で説明してください。
-- nextAction は具体的な次の行動を示してください。`;
+出力例:
+{
+  "part": "電池",
+  "reason": "秒針が5秒おきに飛ぶのは、電池電圧低下によるICの省電力モードが発動したためです。",
+  "nextAction": "新品の電池に交換し、秒針が1秒おきに進むか確認してください。"
+}`;
+}
+
+function buildUserPrompt(symptom: string): string {
+  return `以下の症状から故障部品を診断してください。\n\nユーザー症状:\n${symptom}`;
 }
 
 function isLlmDiagnosis(value: unknown): value is LlmDiagnosis {
@@ -89,11 +95,16 @@ export async function generateDiagnosis(
     body: JSON.stringify({
       model: GROQ_MODEL,
       temperature: 0.2,
+      max_tokens: 1024,
       response_format: { type: "json_object" },
       messages: [
         {
+          role: "system",
+          content: buildSystemPrompt(contexts),
+        },
+        {
           role: "user",
-          content: buildSystemPrompt(symptom, contexts),
+          content: buildUserPrompt(symptom),
         },
       ],
     }),
