@@ -1,0 +1,5 @@
+{
+  "files.associations": {
+    "src/data/seed.json": "jsonc"
+  }
+}

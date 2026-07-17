@@ -80,5 +80,5 @@ npm run eval
 ## 9. 注意事項
 
 - `id` は後から変更しない。変更が必要な場合は `npm run seed` で再同期する。
-- JSON の文法エラーがあると `npm run seed` が失敗する。編集後は `node --check src/data/seed.json` などで構文を確認するとよい。
+- `seed.json` には `//` 形式のコメントを含められる。`npm run seed` はコメントを除去してからパースし、文法エラーがあれば失敗する。
 - 機密情報や個人情報を `seed.json` に含めない。

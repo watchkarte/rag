@@ -345,10 +345,10 @@ Workers AI の無料枠（トークン/日）があるため、seed は時間が
 ### 12.1 変更手順
 
 1. `src/data/seed.json` を編集する
-2. JSON 構文を確認する:
+2. JSON 構文を確認する（コメントを許容）:
 
    ```bash
-   node -e "require('./src/data/seed.json')"
+   node -e "const fs=require('fs'); const r=fs.readFileSync('./src/data/seed.json','utf8'); JSON.parse(r.replace(/\/\/.*$/gm,'').replace(/\/\*[\\s\\S]*?\*\//g,'')); console.log('OK')"
    ```
 
 3. リモートへ再投入:

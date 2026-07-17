@@ -37,12 +37,18 @@ async function sleep(ms: number): Promise<void> {
   await new Promise((r) => setTimeout(r, ms));
 }
 
+function stripJsonComments(raw: string): string {
+  return raw
+    .replace(/\/\/.*$/gm, "")
+    .replace(/\/\*[\s\S]*?\*\//g, "");
+}
+
 async function main(): Promise<void> {
   const cf = loadCloudflareConfig();
   const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
   const seedPath = resolve(root, "src/data/seed.json");
   const raw = await readFile(seedPath, "utf-8");
-  const items = JSON.parse(raw) as SeedItem[];
+  const items = JSON.parse(stripJsonComments(raw)) as SeedItem[];
 
   if (!Array.isArray(items) || items.length === 0) {
     throw new Error("seed.json が空です");
